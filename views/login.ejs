@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vintage Dreams</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <div
+        class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center"
+      >
+        <div class="d-flex align-items-center justify-content-center w-100">
+          <div class="row justify-content-center w-100">
+            <div class="col-md-8 col-lg-6 col-xxl-3">
+              <div class="card mb-0">
+                <div class="card-body">
+                  <a
+                    href="./index.html"
+                    class="text-nowrap logo-img text-center d-block py-3 w-100"
+                  >
+                  <h3 style="color: black;"><strong>Vintage</strong> Dreams</h3>
+                  </a>
+                  <p class="text-center">Sign In</p>
+                  <form id="signin_form">
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        aria-describedby="emailHelp"
+                      />
+                    </div>
+                    <div class="mb-4">
+                      <label for="password" class="form-label">Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        name="password"
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
+                    >
+                      Login
+                    </button>
+                    <div
+                      class="d-flex align-items-center justify-content-center"
+                    >
+                      <p class="fs-4 mb-0 fw-bold">
+                        New to Vintage Dreams Clothing ?
+                      </p>
+                      <a
+                        class="text-primary fw-bold ms-2"
+                        href="/register"
+                        >Create an account</a
+                      >
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/sweetalert2@11.js"></script>
+    <script>
+      // on document ready
+      $(document).ready(function () {
+        // on form submit
+        $("#signin_form").submit(function (e) {
+          // prevent default form submission
+          e.preventDefault();
+          // get form data
+          var formData = $(this).serialize();
+          // send ajax request
+          $.ajax({
+            url: "/auth",
+            type: "POST",
+            data: formData,
+            dataType: "json",
+            success: function (response) {
+              if (response.status == 200) {
+                // show success message
+                Swal.fire({
+                  icon: "success",
+                  title: "Success",
+                  text: "You logged in successfully.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                // redirect to login page
+                setTimeout(function () {
+                  // if 5150 is in response.roles array
+                  if (response.roles.includes(5150)) {
+                    // request admin index page with token using ajax
+                    window.location.href = "/admin/index";
+                  } else {
+                    window.location.href = "/user/my-account";
+                  }
+                }, 1500);
+              }
+            },
+            error: function (xhr, status, error) {
+              // if status is 400
+              if (xhr.status == 400) {
+                // show error message
+                Swal.fire({
+                  icon: "warning",
+                  title: "Warning",
+                  text: "Email and Password is required.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+              // if status is 401
+              else if (xhr.status == 401) {
+                // show error message
+                Swal.fire({
+                  icon: "warning",
+                  title: "Warning",
+                  text: "Invalid Email or Password.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              } else {
+                alert("Something went wrong.");
+              }
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

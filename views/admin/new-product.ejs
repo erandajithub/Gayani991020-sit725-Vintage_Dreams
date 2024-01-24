@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vintage Dreams - Admin</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <%- include('sidebar'); %>
+      <!--  Sidebar End -->
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <%- include('header'); %>
+        <!--  Header End -->
+        <div class="container-fluid">
+          <div class="container-fluid">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title fw-semibold mb-4">Add New Product</h5>
+                <div class="card">
+                  <div class="card-body">
+                    <form id="newProductForm">
+                      <div class="mb-5">
+                        <label for="name" class="form-label"
+                          >Name / Title</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          name="name"
+                        />
+                      </div>
+                      <div class="mb-5">
+                        <label for="description" class="form-label"
+                          >Description (Optional)</label
+                        >
+                        <textarea
+                          class="form-control"
+                          name="description"
+                          id="description"
+                          cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                      <div class="mb-5">
+                        <label for="category" class="form-label"
+                          >Category</label
+                        >
+                        <select
+                          class="form-select"
+                          name="category"
+                          id="category"
+                        >
+                          <option value="1">Men</option>
+                          <option value="2">Women</option>
+                          <option value="3">Accessories</option>
+                        </select>
+                      </div>
+                      <div class="mb-5">
+                        <label for="category" class="form-label"
+                          >Available Sizes</label
+                        >
+                        <div class="d-flex">
+                          <div class="form-check me-5">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="Small"
+                              id="sizeSmall"
+                            />
+                            <label class="form-check-label" for="sizeSmall">
+                              Small
+                            </label>
+                          </div>
+                          <div class="form-check me-5">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="Medium"
+                              id="sizeMedium"
+                            />
+                            <label class="form-check-label" for="sizeMedium">
+                              Medium
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              value="Large"
+                              id="sizeLarge"
+                            />
+                            <label class="form-check-label" for="sizeLarge">
+                              Large
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-5">
+                        <label for="name" class="form-label"
+                          >Cost, Selling Price & Quantity</label
+                        >
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Size</th>
+                              <th scope="col">Cost</th>
+                              <th scope="col">Selling Price</th>
+                              <th scope="col">Quantity</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr id="smallTr" class="d-none">
+                              <th scope="row">Small</th>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="costSmall"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="sellingPriceSmall"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  min="0"
+                                  step="1"
+                                  oninput="validity.valid||(value='');"
+                                  id="quantitySmall"
+                                />
+                              </td>
+                            </tr>
+                            <tr id="mediumTr" class="d-none">
+                              <th scope="row">Medium</th>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="costMedium"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="sellingPriceMedium"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  min="0"
+                                  step="1"
+                                  oninput="validity.valid||(value='');"
+                                  id="quantityMedium"
+                                />
+                              </td>
+                            </tr>
+                            <tr id="largeTr" class="d-none">
+                              <th scope="row">Large</th>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="costLarge"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="input-group mb-3">
+                                  <span class="input-group-text">$</span>
+                                  <input
+                                    type="number"
+                                    class="form-control"
+                                    aria-label="Amount (to the nearest dollar)"
+                                    id="sellingPriceLarge"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  class="form-control"
+                                  min="0"
+                                  step="1"
+                                  oninput="validity.valid||(value='');"
+                                  id="quantityLarge"
+                                />
+                              </td>
+                            </tr>
+                            <tr id="noSizesSelected">
+                              <td>
+                                <span class="text-warning"
+                                  >No Sizes selected.</span
+                                >
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="mb-5">
+                        <label for="name" class="form-label">Photo</label>
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="photo"
+                          name="photo"
+                        />
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="../js/sweetalert2@11.js"></script>
+    <script>
+      // #sizeSmall on change
+      $("#sizeSmall").change(function () {
+        if ($(this).is(":checked")) {
+          $("#smallTr").removeClass("d-none");
+        } else {
+          $("#smallTr").addClass("d-none");
+        }
+      });
+      // #sizeMedium on change
+      $("#sizeMedium").change(function () {
+        if ($(this).is(":checked")) {
+          $("#mediumTr").removeClass("d-none");
+        } else {
+          $("#mediumTr").addClass("d-none");
+        }
+      });
+      // #sizeLarge on change
+      $("#sizeLarge").change(function () {
+        if ($(this).is(":checked")) {
+          $("#largeTr").removeClass("d-none");
+        } else {
+          $("#largeTr").addClass("d-none");
+        }
+      });
+      // #newProductForm on change
+      $("#newProductForm").change(function () {
+        if (
+          !$("#sizeSmall").is(":checked") &&
+          !$("#sizeMedium").is(":checked") &&
+          !$("#sizeLarge").is(":checked")
+        ) {
+          $("#noSizesSelected").removeClass("d-none");
+        } else {
+          $("#noSizesSelected").addClass("d-none");
+        }
+      });
+      // #newProductForm on submit
+      $("#newProductForm").submit(function (e) {
+        e.preventDefault();
+        // Get all the values from the form
+        let name = $("#name").val();
+        let description = $("#description").val();
+        let category = $("#category").val();
+        let sizeSmall = $("#sizeSmall").is(":checked");
+        let sizeMedium = $("#sizeMedium").is(":checked");
+        let sizeLarge = $("#sizeLarge").is(":checked");
+        let costSmall = $("#costSmall").val();
+        let costMedium = $("#costMedium").val();
+        let costLarge = $("#costLarge").val();
+        let sellingPriceSmall = $("#sellingPriceSmall").val();
+        let sellingPriceMedium = $("#sellingPriceMedium").val();
+        let sellingPriceLarge = $("#sellingPriceLarge").val();
+        let quantitySmall = $("#quantitySmall").val();
+        let quantityMedium = $("#quantityMedium").val();
+        let quantityLarge = $("#quantityLarge").val();
+        let photo = $("#photo").val();
+        // Check if all the required fields are filled
+        if (!name) {
+          swal.fire("Error", "Please enter the name of the product", "error");
+          return;
+        }
+        if (!category) {
+          swal.fire(
+            "Error",
+            "Please select the category of the product",
+            "error"
+          );
+          return;
+        }
+        if (!sizeSmall && !sizeMedium && !sizeLarge) {
+          swal.fire("Error", "Please select at least one size", "error");
+          return;
+        }
+        // if sizeSmall is checked, check if costSmall, sellingPriceSmall and quantitySmall are filled
+        if (sizeSmall) {
+          if (!costSmall) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the small size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceSmall) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the small size",
+              "error"
+            );
+            return;
+          }
+          if (!quantitySmall) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the small size",
+              "error"
+            );
+            return;
+          }
+        }
+        // if sizeMedium is checked, check if costMedium, sellingPriceMedium and quantityMedium are filled
+        if (sizeMedium) {
+          if (!costMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the medium size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the medium size",
+              "error"
+            );
+            return;
+          }
+          if (!quantityMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the medium size",
+              "error"
+            );
+            return;
+          }
+        }
+        // if sizeLarge is checked, check if costLarge, sellingPriceLarge and quantityLarge are filled
+        if (sizeLarge) {
+          if (!costLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the large size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the large size",
+              "error"
+            );
+            return;
+          }
+          if (!quantityLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the large size",
+              "error"
+            );
+            return;
+          }
+        }
+
+        // build an object with all the data as shown above
+        let data = {
+          name: name,
+          description: description,
+          category: category,
+          size: [],
+          price: [],
+          cost: [],
+          stockQuantity: [],
+        };
+        if (sizeSmall) {
+          data.size.push("Small");
+          data.price.push({
+            size: "Small",
+            value: sellingPriceSmall,
+          });
+          data.cost.push({
+            size: "Small",
+            value: costSmall,
+          });
+          data.stockQuantity.push({
+            size: "Small",
+            value: quantitySmall,
+          });
+        }
+        if (sizeMedium) {
+          data.size.push("Medium");
+          data.price.push({
+            size: "Medium",
+            value: sellingPriceMedium,
+          });
+          data.cost.push({
+            size: "Medium",
+            value: costMedium,
+          });
+          data.stockQuantity.push({
+            size: "Medium",
+            value: quantityMedium,
+          });
+        }
+        if (sizeLarge) {
+          data.size.push("Large");
+          data.price.push({
+            size: "Large",
+            value: sellingPriceLarge,
+          });
+          data.cost.push({
+            size: "Large",
+            value: costLarge,
+          });
+          data.stockQuantity.push({
+            size: "Large",
+            value: quantityLarge,
+          });
+        }
+
+        // Send the data to the server
+        $.ajax({
+          url: "/products",
+          type: "POST",
+          contentType: "application/json", // Set the content type to JSON
+          data: JSON.stringify(data), // Stringify the data
+          success: function (data) {
+            // If the data is sent successfully
+            // upload the photo
+            let formData = new FormData();
+            formData.append("photo", $("#photo")[0].files[0]);
+            formData.append("id", data._id);
+            $.ajax({
+              url: "/products/upload",
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (data) {
+                // If the photo is uploaded successfully
+                // Show a success message
+                swal
+                  .fire({
+                    title: "Success",
+                    text: "Product added successfully",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                  })
+                  .then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.href = "/admin/all-products";
+                    }
+                  });
+              },
+              error: function (err) {
+                // If there is an error, show the error message
+                console.log(err.responseJSON.message);
+              },
+            });
+          },
+          error: function (err) {
+            // If there is an error, show the error message
+            console.log(err.responseJSON.message);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

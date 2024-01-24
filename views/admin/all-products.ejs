@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vintage Dreams - Admin</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/favicon.png"
+    />
+    <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <!-- Sidebar Start -->
+      <%- include('sidebar'); %>
+      <!--  Sidebar End -->
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <!--  Header Start -->
+        <%- include('header'); %>
+        <!--  Header End -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 d-flex align-items-stretch">
+              <div class="card w-100">
+                <div class="card-body p-4">
+                  <h5 class="card-title fw-semibold mb-4">All Products</h5>
+                  <div class="table-responsive">
+                    <table
+                      class="table text-nowrap table-hover mb-0 align-middle"
+                    >
+                      <thead class="text-dark fs-4">
+                        <tr>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">#</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Name</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Category</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Sizes</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Price</h6>
+                          </th>
+                          <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Stock</h6>
+                          </th>
+                          <!-- <th class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0">Actions</h6>
+                          </th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% if (products.length > 0) { %> <%
+                        products.forEach(function(product, index) { %>
+                        <tr>
+                          <td class="border-bottom-0">
+                            <h6 class="fw-semibold mb-0"><%= index+1 %></h6>
+                          </td>
+                          <td class="border-bottom-0">
+                            <h6 class="fw-semibold mb-1">
+                              <%= product.name %>
+                            </h6>
+                          </td>
+                          <td class="border-bottom-0">
+                            <p class="mb-0 fw-normal">
+                              <!-- Category -->
+                              <% if (product.category === 1) { %> Men <% } else
+                              if (product.category === 2) { %> Women <% } else {
+                              %> Accessories <% } %>
+                            </p>
+                          </td>
+                          <td class="border-bottom-0">
+                            <div
+                              class="d-flex flex-column align-items-center gap-2"
+                            >
+                              <% product.size.forEach(size => { %>
+                              <span
+                                class="badge bg-secondary rounded-3 fw-semibold"
+                                style="font-size: 10px"
+                                ><%= size %></span
+                              >
+                              <% }); %>
+                            </div>
+                          </td>
+                          <td class="border-bottom-0">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="dropdown">
+                                <button
+                                  class="btn btn-primary btn-sm dropdown-toggle"
+                                  type="button"
+                                  id="dropdownMenuButton1"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  View Prices
+                                </button>
+                                <ul
+                                  class="dropdown-menu"
+                                  aria-labelledby="dropdownMenuButton1"
+                                >
+                                  <% product.price.forEach(price => { %>
+                                  <li class="dropdown-item">
+                                    <%= price.size %> : $<%= price.value %>
+                                  </li>
+                                  <% }); %>
+                                </ul>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="border-bottom-0">
+                            <div class="d-flex align-items-center gap-2">
+                              <div class="dropdown">
+                                <button
+                                  class="btn btn-primary btn-sm dropdown-toggle"
+                                  type="button"
+                                  id="dropdownMenuButton1"
+                                  data-bs-toggle="dropdown"
+                                  aria-expanded="false"
+                                >
+                                  View Quantity
+                                </button>
+                                <ul
+                                  class="dropdown-menu"
+                                  aria-labelledby="dropdownMenuButton1"
+                                >
+                                  <% product.stockQuantity.forEach(quantity => {
+                                  %>
+                                  <li class="dropdown-item">
+                                    <%= quantity.size %> : <%= quantity.value %>
+                                  </li>
+                                  <% }); %>
+                                </ul>
+                              </div>
+
+                              <!-- badge to show instock or out of stock. by adding the quantity in each size -->
+                              <% let totalQuantity = 0;
+                              product.stockQuantity.forEach(quantity => {
+                              totalQuantity += quantity.value; }); %> <% if
+                              (totalQuantity > 0) { %>
+                              <span
+                                class="badge bg-success rounded-3 fw-semibold"
+                                style="font-size: 10px"
+                                >In Stock</span
+                              >
+                              <% } else { %>
+                              <span
+                                class="badge bg-danger rounded-3 fw-semibold"
+                                style="font-size: 10px"
+                                >Out of Stock</span
+                              >
+                              <% } %>
+                            </div>
+                          </td>
+                          <!-- <td class="border-bottom-0">
+                            <div class="dropdown">
+                              <button
+                                class="btn btn-dark dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                              >
+                                <i class="ti ti-pencil"></i>
+                              </button>
+                              <ul
+                                class="dropdown-menu"
+                                aria-labelledby="dropdownMenuButton1"
+                              >
+                                <li>
+                                  <a class="dropdown-item" href="#">View</a>
+                                </li>
+                                <li>
+                                  <a class="dropdown-item" href="#">Edit</a>
+                                </li>
+                                <li>
+                                  <a class="dropdown-item text-danger" href="#">Delete</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </td> -->
+                        </tr>
+                        <% }) %> <% } else { %>
+                        <tr>
+                          <td colspan="5" class="text-center">
+                            <h6 class="fw-semibold mb-0">No products found</h6>
+                          </td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="../js/sweetalert2@11.js"></script>
+    <script>
+      // #sizeSmall on change
+      $("#sizeSmall").change(function () {
+        if ($(this).is(":checked")) {
+          $("#smallTr").removeClass("d-none");
+        } else {
+          $("#smallTr").addClass("d-none");
+        }
+      });
+      // #sizeMedium on change
+      $("#sizeMedium").change(function () {
+        if ($(this).is(":checked")) {
+          $("#mediumTr").removeClass("d-none");
+        } else {
+          $("#mediumTr").addClass("d-none");
+        }
+      });
+      // #sizeLarge on change
+      $("#sizeLarge").change(function () {
+        if ($(this).is(":checked")) {
+          $("#largeTr").removeClass("d-none");
+        } else {
+          $("#largeTr").addClass("d-none");
+        }
+      });
+      // #newProductForm on change
+      $("#newProductForm").change(function () {
+        if (
+          !$("#sizeSmall").is(":checked") &&
+          !$("#sizeMedium").is(":checked") &&
+          !$("#sizeLarge").is(":checked")
+        ) {
+          $("#noSizesSelected").removeClass("d-none");
+        } else {
+          $("#noSizesSelected").addClass("d-none");
+        }
+      });
+      // #newProductForm on submit
+      $("#newProductForm").submit(function (e) {
+        e.preventDefault();
+        // Get all the values from the form
+        let name = $("#name").val();
+        let description = $("#description").val();
+        let category = $("#category").val();
+        let sizeSmall = $("#sizeSmall").is(":checked");
+        let sizeMedium = $("#sizeMedium").is(":checked");
+        let sizeLarge = $("#sizeLarge").is(":checked");
+        let costSmall = $("#costSmall").val();
+        let costMedium = $("#costMedium").val();
+        let costLarge = $("#costLarge").val();
+        let sellingPriceSmall = $("#sellingPriceSmall").val();
+        let sellingPriceMedium = $("#sellingPriceMedium").val();
+        let sellingPriceLarge = $("#sellingPriceLarge").val();
+        let quantitySmall = $("#quantitySmall").val();
+        let quantityMedium = $("#quantityMedium").val();
+        let quantityLarge = $("#quantityLarge").val();
+        let photo = $("#photo").val();
+        // Check if all the required fields are filled
+        if (!name) {
+          swal.fire("Error", "Please enter the name of the product", "error");
+          return;
+        }
+        if (!category) {
+          swal.fire(
+            "Error",
+            "Please select the category of the product",
+            "error"
+          );
+          return;
+        }
+        if (!sizeSmall && !sizeMedium && !sizeLarge) {
+          swal.fire("Error", "Please select at least one size", "error");
+          return;
+        }
+        // if sizeSmall is checked, check if costSmall, sellingPriceSmall and quantitySmall are filled
+        if (sizeSmall) {
+          if (!costSmall) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the small size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceSmall) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the small size",
+              "error"
+            );
+            return;
+          }
+          if (!quantitySmall) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the small size",
+              "error"
+            );
+            return;
+          }
+        }
+        // if sizeMedium is checked, check if costMedium, sellingPriceMedium and quantityMedium are filled
+        if (sizeMedium) {
+          if (!costMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the medium size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the medium size",
+              "error"
+            );
+            return;
+          }
+          if (!quantityMedium) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the medium size",
+              "error"
+            );
+            return;
+          }
+        }
+        // if sizeLarge is checked, check if costLarge, sellingPriceLarge and quantityLarge are filled
+        if (sizeLarge) {
+          if (!costLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the cost of the large size",
+              "error"
+            );
+            return;
+          }
+          if (!sellingPriceLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the selling price of the large size",
+              "error"
+            );
+            return;
+          }
+          if (!quantityLarge) {
+            swal.fire(
+              "Error",
+              "Please enter the quantity of the large size",
+              "error"
+            );
+            return;
+          }
+        }
+
+        // build an object with all the data as shown above
+        let data = {
+          name: name,
+          description: description,
+          category: category,
+          size: [],
+          price: [],
+          cost: [],
+          stockQuantity: [],
+        };
+        if (sizeSmall) {
+          data.size.push("Small");
+          data.price.push({
+            size: "Small",
+            value: sellingPriceSmall,
+          });
+          data.cost.push({
+            size: "Small",
+            value: costSmall,
+          });
+          data.stockQuantity.push({
+            size: "Small",
+            value: quantitySmall,
+          });
+        }
+        if (sizeMedium) {
+          data.size.push("Medium");
+          data.price.push({
+            size: "Medium",
+            value: sellingPriceMedium,
+          });
+          data.cost.push({
+            size: "Medium",
+            value: costMedium,
+          });
+          data.stockQuantity.push({
+            size: "Medium",
+            value: quantityMedium,
+          });
+        }
+        if (sizeLarge) {
+          data.size.push("Large");
+          data.price.push({
+            size: "Large",
+            value: sellingPriceLarge,
+          });
+          data.cost.push({
+            size: "Large",
+            value: costLarge,
+          });
+          data.stockQuantity.push({
+            size: "Large",
+            value: quantityLarge,
+          });
+        }
+
+        // Send the data to the server
+        $.ajax({
+          url: "/products",
+          type: "POST",
+          contentType: "application/json", // Set the content type to JSON
+          data: JSON.stringify(data), // Stringify the data
+          success: function (data) {
+            // If the data is sent successfully
+            swal
+              .fire({
+                title: "Success",
+                text: "Product added successfully",
+                icon: "success",
+                confirmButtonText: "Ok",
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/admin/index";
+                }
+              });
+          },
+          error: function (err) {
+            // If there is an error, show the error message
+            console.log(err.responseJSON.message);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

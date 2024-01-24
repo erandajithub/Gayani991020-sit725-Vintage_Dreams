@@ -1,0 +1,8 @@
+Customer
+Product
+Order
+
+Customer – id, firstname, lastname, address, zipcode, phone, email, password
+Product – id, category(men, women, kids), color, size, stock_quantity, cost, selling_price, discount, image, title, description
+Order – id, c_name, c_address, c_zipcode, c_phone, c_email, total, status, placed_at
+Order Products – id, order_id, product_id
